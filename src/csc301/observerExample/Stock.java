@@ -34,7 +34,9 @@ public class Stock extends Observable {
 			throw new IllegalArgumentException("Price must be non-negative.");
 		}
 		this.price = price.setScale(2, BigDecimal.ROUND_HALF_UP);
+		
 		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
