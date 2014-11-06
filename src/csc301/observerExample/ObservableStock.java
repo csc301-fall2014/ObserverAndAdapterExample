@@ -17,12 +17,14 @@ public class ObservableStock extends Stock {
 	@Override
 	public void setPrice(BigDecimal price) {
 		super.setPrice(price);
-		
-		if(observers == null){
-			return;
-		}
-		for(StockObserver observer : observers){
-			observer.onUpdate(this);
+		notifyObservers();
+	}
+	
+	private void notifyObservers(){
+		if(observers != null){
+			for(StockObserver observer : observers){
+				observer.onUpdate(this);
+			}
 		}
 	}
 	
