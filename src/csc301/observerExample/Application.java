@@ -7,7 +7,9 @@ public class Application implements StockObserver2 {
 	
 	@Override
 	public void onUpdate(Stock stockBefore, Stock stockAfter) {
-		if(stockAfter.getPrice().compareTo(stockBefore.getPrice()) > 0){
+		if(stockBefore == null){
+			System.out.println(stockAfter);
+		} else if(stockAfter.getPrice().compareTo(stockBefore.getPrice()) > 0){
 			System.out.println("UP: " + stockAfter);
 		} else if(stockAfter.getPrice().compareTo(stockBefore.getPrice()) == 0){
 			System.out.println("SAME: " + stockAfter);
@@ -21,7 +23,7 @@ public class Application implements StockObserver2 {
 	public static void main(String[] args) {
 		Application application = new Application();	
 		ObservableStock s = new ObservableStock("AMZN", new BigDecimal("296.52"));
-		s.addObserver(new StockObserverAdapter(application, s));
+		s.addObserver(new StockObserverAdapter(application));
 		
 		
 		s.setPrice(s.getPrice().multiply(new BigDecimal("1.02")));
